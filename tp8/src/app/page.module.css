@@ -22,6 +22,10 @@
   margin-bottom: 20px;
 }
 
+.inputContainer {
+  margin-top: 20px;
+}
+
 .inputfield {
   padding: 12px;
   font-size: 16px;
@@ -47,16 +51,36 @@
   transform: scale(1.05);
 }
 
-.score {
-  margin-top: 20px;
-  font-size: 1.5rem;
-  color: #444;
+.helpbutton {
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  background-color: #ffc107;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-left: 10px;
+}
+
+.helpbutton:hover {
+  background-color: #e0a800;
+  transform: scale(1.05);
 }
 
 .timer {
   margin-top: 20px;
-  font-size: 1.2rem;
-  color: #dc3545; /* Color rojo para el temporizador */
 }
 
+.help {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #555;
+}
 
+.score {
+  margin-top: 20px;
+  font-size: 1.5rem;
+  color: #333;
+}

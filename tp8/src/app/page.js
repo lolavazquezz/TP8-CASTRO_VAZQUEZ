@@ -11,6 +11,7 @@ export default function Home() {
   const [cargando, setCargando] = useState(true);
   const [tiempoRestante, setTiempoRestante] = useState(15); // Estado para el temporizador
   const [temporizadorActivo, setTemporizadorActivo] = useState(false); // Para manejar si el temporizador está activo
+  const [letrasReveladas, setLetrasReveladas] = useState(new Set()); // Estado para las letras reveladas
 
   useEffect(() => {
     axios.get("https://countriesnow.space/api/v0.1/countries/flag/images")
@@ -33,13 +34,13 @@ export default function Home() {
   useEffect(() => {
     if (temporizadorActivo) {
       const timer = setInterval(() => {
-        setTiempoRestante((prev) => {
+        setTiempoRestante(prev => {
           if (prev <= 1) {
             clearInterval(timer);
             setTemporizadorActivo(false);
-            if (puntos>0) {
-            setPuntos(puntos - 1);
-            } // Restar puntos si el tiempo se acaba
+            if (puntos > 0) {
+              setPuntos(puntos - 1);
+            }
             random(paises);
             return 15; // Reiniciar el tiempo para la próxima bandera
           }
@@ -47,7 +48,7 @@ export default function Home() {
         });
       }, 1000);
 
-      return () => clearInterval(timer); // Limpia el intervalo al desmontar el componente
+      return () => clearInterval(timer);
     }
   }, [temporizadorActivo, paises, puntos]);
 
@@ -57,6 +58,7 @@ export default function Home() {
       setPaisRandom(e[randomIndex]);
       setTemporizadorActivo(true); // Inicia el temporizador cuando se cambia la bandera
       setTiempoRestante(15); // Reinicia el temporizador a 15 segundos
+      setLetrasReveladas(new Set()); // Reinicia las letras reveladas
     }
   };
 
@@ -70,6 +72,33 @@ export default function Home() {
     }
     random(paises);
     setRespuesta('');
+  };
+
+  const revelarLetras = () => {
+    if (paisRandom && tiempoRestante > 0) {
+      let letrasNoReveladas = [];
+      for (let i = 0; i < paisRandom.name.length; i++) {
+        if (!letrasReveladas.has(paisRandom.name[i].toLowerCase()) && paisRandom.name[i] !== ' ') {
+          letrasNoReveladas.push(i);
+        }
+      }
+
+      if (letrasNoReveladas.length > 0) {
+        const indiceAleatorio = letrasNoReveladas[Math.floor(Math.random() * letrasNoReveladas.length)];
+        setLetrasReveladas(prev => new Set(prev).add(paisRandom.name[indiceAleatorio].toLowerCase()));
+        setTiempoRestante(prev => (prev > 2 ? prev - 2 : 0));
+      }
+    }
+  };
+
+  const renderRespuestaConAyuda = () => {
+    if (!paisRandom) return '';
+
+    return paisRandom.name.split('').map((letra, index) => {
+      return letra === ' ' || letrasReveladas.has(letra.toLowerCase())
+        ? letra
+        : '_';
+    }).join(' ');
   };
 
   if (cargando) {
@@ -86,7 +115,7 @@ export default function Home() {
             alt={`Flag of ${paisRandom.name}`}
             className={styles.flagimg}
           />
-          <div style={{ marginTop: '20px' }}>
+          <div className={styles.inputContainer}>
             <input
               type="text"
               value={respuesta}
@@ -100,9 +129,18 @@ export default function Home() {
             >
               Enviar
             </button>
+            <button
+              onClick={revelarLetras}
+              className={styles.helpbutton}
+            >
+              Ayuda
+            </button>
           </div>
           <div className={styles.timer}>
             <p>Tiempo restante: {tiempoRestante} s</p>
+          </div>
+          <div className={styles.help}>
+            <p>{renderRespuestaConAyuda()}</p>
           </div>
         </>
       ) : (
