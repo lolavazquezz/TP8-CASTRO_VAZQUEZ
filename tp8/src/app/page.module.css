@@ -1,10 +1,10 @@
-/* styles.css */
+/* page.module.css */
 .container {
   text-align: center;
   font-family: 'Arial', sans-serif;
   padding: 20px;
-  background-color: #f4f4f9; /* Fondo claro para contrastar */
-  min-height: 100vh; /* Asegura que el contenido ocupe toda la altura de la ventana */
+  background-color: #f4f4f9;
+  min-height: 100vh;
 }
 
 .header {
@@ -16,10 +16,10 @@
 .flagimg {
   width: 300px;
   height: auto;
-  border: 2px solid #007bff; /* Color de borde */
-  border-radius: 12px; /* Bordes más redondeados */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil para profundidad */
-  margin-bottom: 20px; /* Espacio debajo de la imagen */
+  border: 2px solid #007bff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
 .inputfield {
@@ -27,8 +27,8 @@
   font-size: 16px;
   width: 300px;
   border-radius: 8px;
-  border: 1px solid #ccc; /* Color de borde más suave */
-  margin-right: 10px; /* Espacio a la derecha del campo de entrada */
+  border: 1px solid #ccc;
+  margin-right: 10px;
 }
 
 .submitbutton {
@@ -36,20 +36,27 @@
   font-size: 16px;
   border-radius: 8px;
   border: none;
-  background-color: #28a745; /* Color verde */
+  background-color: #28a745;
   color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s; /* Efecto suave en el botón */
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .submitbutton:hover {
-  background-color: #218838; /* Color verde más oscuro al pasar el mouse */
-  transform: scale(1.05); /* Aumenta el tamaño del botón ligeramente */
+  background-color: #218838;
+  transform: scale(1.05);
 }
 
 .score {
   margin-top: 20px;
   font-size: 1.5rem;
-  color: #444; /* Color de texto */
+  color: #444;
 }
+
+.timer {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: #dc3545; /* Color rojo para el temporizador */
+}
+
 
